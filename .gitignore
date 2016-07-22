@@ -1,0 +1,8 @@
+#Emacs
+*~
+
+# PyCharm
+.idea
+
+# Python
+*.pyc

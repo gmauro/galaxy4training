@@ -1,0 +1,2 @@
+[galaxy_hosts]
+training ansible_ssh_user=debian

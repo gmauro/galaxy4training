@@ -1,0 +1,14 @@
+- hosts: galaxy_hosts
+  pre_tasks:
+    - name: Install Git
+      apt: pkg={{ item }} state=installed
+      become: yes
+      with_items:
+        - git
+        - python-pip
+        - python-virtualenv
+      when: ansible_os_family == 'Debian'
+  roles:
+    - role: docker
+      become: yes
+
