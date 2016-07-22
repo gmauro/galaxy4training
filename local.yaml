@@ -1,5 +1,5 @@
-- hosts: galaxy_hosts
+- hosts: localhost
+  connection: local
   roles:
     - role: ansible-galaxy-os
       become: yes
-
