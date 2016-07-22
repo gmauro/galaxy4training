@@ -1,5 +1,14 @@
 - hosts: localhost
   connection: local
+  vars:
+    galaxy_server_dir: /opt/galaxy/server
+    galaxy_config_dir: /opt/galaxy/config
+    galaxy_mutable_config_dir: /var/opt/galaxy/config
+    galaxy_mutable_data_dir: /var/opt/galaxy/data
+    galaxy_vcs: git
+    galaxy_repo: https://github.com/galaxyproject/galaxy.git
+    galaxy_changeset_id: release_16.04
   roles:
     - role: ansible-galaxy-os
       become: yes
+    - role: ansible-galaxy

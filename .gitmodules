@@ -1,3 +1,6 @@
 [submodule "roles/ansible-galaxy-os"]
 	path = roles/ansible-galaxy-os
 	url = https://github.com/gmauro/ansible-galaxy-os.git
+[submodule "roles/ansible-galaxy"]
+	path = roles/ansible-galaxy
+	url = https://github.com/gmauro/ansible-galaxy
