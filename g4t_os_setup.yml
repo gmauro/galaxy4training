@@ -1,0 +1,5 @@
+- hosts: galaxy_hosts
+  roles:
+    - role: common
+    - role: ansible-galaxy-os
+      become: yes

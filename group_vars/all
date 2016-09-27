@@ -1,0 +1,7 @@
+g4t_manage_os_setup: no
+g4t_manage_db_setup: no
+g4t_manage_galaxy: no
+g4t_manage_extras: no
+g4t_manage_tools: no
+g4t_manage_datasets: no
+
