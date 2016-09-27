@@ -10,3 +10,6 @@
 [submodule "roles/ansible-postgresql"]
 	path = roles/ansible-postgresql
 	url = https://github.com/gmauro/ansible-postgresql.git
+[submodule "roles/ansible-gx-extras"]
+	path = roles/ansible-gx-extras
+	url = https://github.com/gmauro/ansible-gx-extras.git
