@@ -9,4 +9,4 @@
 	url = https://github.com/gmauro/ansible-galaxy-tools.git
 [submodule "roles/ansible-postgresql"]
 	path = roles/ansible-postgresql
-	url = git@github.com:gmauro/ansible-postgresql.git
+	url = https://github.com/gmauro/ansible-postgresql.git
