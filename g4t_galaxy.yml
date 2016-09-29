@@ -1,0 +1,39 @@
+- hosts: galaxy_hosts
+  vars:
+#    admin_users: ''
+#    brand: Training
+    galaxy_mutable_config_dir: "{{ galaxy_user_home }}/config"
+    galaxy_mutable_data_dir: "{{ galaxy_user_home }}/data"
+    galaxy_vcs: git
+    galaxy_repo: https://github.com/galaxyproject/galaxy.git
+    galaxy_changeset_id: release_16.04
+    galaxy_force_checkout: yes
+    galaxy_config:
+      "server:main":
+        host: 0.0.0.0
+      "app:main":
+        database_connection: "postgresql:///galaxy?host=/var/run/postgresql"
+        brand: "{{ brand }}"
+        admin_users: "{{ admin_users }}"
+        allow_user_impersonation: True
+        require_login: True
+        allow_user_creation: False
+        shed_tool_data_path: "{{ galaxy_mutable_data_dir }}/tool-data"
+        tool_config_file: "{{ galaxy_server_dir }}/config/tool_conf.xml.sample,{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml,{{ galaxy_shed_tool_conf_file }}"
+        cleanup_job: onsuccess
+        environment_setup_file: "{{galaxy_mutable_config_dir }}/custom_env.sh"
+        nginx_x_accel_redirect_base: '/_x_accel_redirect'
+  pre_tasks:
+    - name: Create shed_tools directory
+      file: state=directory path={{ item }} owner={{ galaxy_user_name }} group=users
+      with_items:
+        - "{{ galaxy_user_home }}/shed_tools"
+        - "{{ galaxy_mutable_data_dir }}/tool-data"
+        - "{{ galaxy_log_dir }}"
+      become: yes
+
+  roles:
+    - role: common
+    - role: ansible-galaxy
+      become: yes
+      become_user: galaxy
