@@ -1,5 +1,6 @@
 # G4T
 Galaxy 4 Training - Builder for Galaxy training environment
+[![TravisCI](https://api.travis-ci.org/gmauro/galaxy4training.svg?branch=master)](https://travis-ci.org/gmauro/galaxy4training)
 
 ## Ansible roles
  * [common]() place where variables available to all roles are defined.
