@@ -1,0 +1,8 @@
+- hosts: galaxy_hosts
+  vars:
+    supervisor_venv_dir: "{{ galaxy_user_home }}/supervisor/venv"
+    supervisor_config_dir: "{{ galaxy_user_home }}/supervisor/config"
+  roles:
+    - role: common
+    - role: ansible-gx-extras
+
