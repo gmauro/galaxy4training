@@ -6,4 +6,5 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN git clone --recursive https://github.com/gmauro/galaxy4training \
  && cd galaxy4training \
- && ansible-playbook -i inventory local.yml
+ && ansible-playbook -i inventory local.yml -e brand='CI' -e admin_users='admin@example.com'
+ 
