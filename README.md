@@ -11,7 +11,7 @@ Galaxy 4 Training - Builder for Galaxy training environment
  * [ansible-galaxy-tools](https://github.com/galaxyproject/ansible-galaxy-tools)  for automated installation of tools from a Tool Shed into Galaxy.
  * [ansible-gx-datasets]() to install external datasets
 
-## How to use this repository
+## How to clone this repository
 
 Start by cloning the repository:
 
