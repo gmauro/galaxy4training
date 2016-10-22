@@ -19,8 +19,10 @@ Start by cloning the repository:
 
 Since the repository makes use of submodules, you first need to initialize all the submodules:
 
-`cd galaxy4training`
+`cd galaxy4training`  
 `git submodule update --init`
+
+### Short way
 
 Alternatively, with version 1.6.5 of git and later, you can pass the --recursive option to git clone and initialize all submodules:
 
