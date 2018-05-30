@@ -35,7 +35,14 @@
         - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
         - {path: "{{ galaxy_mutable_config_dir }}/tool-data", state: "directory" }
         - {path: "{{ galaxy_log_dir }}", state: "directory" }
-        - {path: "{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml", state: "touch" }
+      become: yes
+
+    - name: Copy custom_tool_conf xml file
+      copy:
+        src: custom_tool_conf.xml
+        dest: "{{ galaxy_mutable_config_dir }}"
+        owner: galaxy
+        group: users
       become: yes
 
   roles:
