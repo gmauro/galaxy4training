@@ -32,6 +32,13 @@
         - "{{ galaxy_log_dir }}"
       become: yes
 
+    - name: Create custom tool xml file
+      file:
+        state: touch
+        path: "{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml"
+        owner: "{{ galaxy_user_name }}"
+        group: users
+
   roles:
     - role: common
     - role: ansible-galaxy
