@@ -25,19 +25,18 @@
         nginx_x_accel_redirect_base: '/_x_accel_redirect'
   pre_tasks:
     - name: Create shed_tools directory
-      file: state=directory path={{ item }} owner={{ galaxy_user_name }} group=users
-      with_items:
-        - "{{ galaxy_user_home }}/shed_tools"
-        - "{{ galaxy_mutable_data_dir }}/tool-data"
-        - "{{ galaxy_log_dir }}"
-      become: yes
-
-    - name: Create custom tool xml file
       file:
-        state: touch
-        path: "{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml"
-        owner: "{{ galaxy_user_name }}"
+        state: {{ item.state }}
+        path: {{ item.path }}
+        owner: galaxy
         group: users
+      with_items:
+        - {path: "{{ galaxy_user_home }}/shed_tools", state: "directory" }
+        - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
+        - {path: "{{ galaxy_mutable_config_dir }}/tool-data", state: "directory" }
+        - {path: "{{ galaxy_log_dir }}", state: "directory" }
+        - {path: "{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml", state: "touch" }
+      become: yes
 
   roles:
     - role: common
