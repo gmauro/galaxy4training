@@ -26,8 +26,8 @@
   pre_tasks:
     - name: Create shed_tools directory
       file:
-        state: {{ item.state }}
-        path: {{ item.path }}
+        state: "{{ item.state }}"
+        path: "{{ item.path }}"
         owner: galaxy
         group: users
       with_items:
