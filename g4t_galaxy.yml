@@ -17,7 +17,7 @@
         admin_users: "{{ admin_users }}"
         allow_user_impersonation: True
         require_login: True
-        allow_user_creation: False
+        allow_user_creation: True
         shed_tool_data_path: "{{ galaxy_mutable_data_dir }}/tool-data"
         tool_config_file: "{{ galaxy_server_dir }}/config/tool_conf.xml.sample,{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml,{{ galaxy_shed_tool_conf_file }}"
         cleanup_job: onsuccess
