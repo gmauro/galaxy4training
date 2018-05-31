@@ -205,16 +205,6 @@ tools:
   tool_panel_section_id: 'ngs:_picard'
   revisions:
   - '379fdf4c41ac'  # v1.126.0
-- name: 'vcfgeno2haplo'
-  owner: 'anton'
-  tool_panel_section_id: 'ngs:_vcf_manipulation'
-  revisions:
-  - 'd6fd217a1f90'
-- name: 'vcfgeno2haplo'
-  owner: 'devteam'
-  tool_panel_section_id: 'ngs:_vcf_manipulation'
-  revisions:
-  - '2bdb74ab3270'
 - name: 'vcfcombine'
   owner: 'devteam'
   tool_panel_section_id: 'ngs:_vcf_manipulation'
