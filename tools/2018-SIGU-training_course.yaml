@@ -300,10 +300,10 @@ tools:
   revisions:
   - 'f27d6187d808'
 - name: 'snpeff'
-  owner: 'pcingola'
+  owner: 'iuc'
   tool_panel_section_id: 'snpeff'
   revisions:
-  - 'c052639fa666'
+  - 'f0ee2b470481'
 - name: 'bedtools'
   owner: 'aaronquinlan'
   tool_panel_section_id: 'bedtools'
