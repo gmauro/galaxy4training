@@ -304,11 +304,6 @@ tools:
   tool_panel_section_id: 'snpeff'
   revisions:
   - 'c052639fa666'
-- name: 'check_snpeff_candidates'
-  owner: 'gregory-minevich'
-  tool_panel_section_id: 'snpeff'
-  revisions:
-  - 'f20585ccbf05'
 - name: 'bedtools'
   owner: 'aaronquinlan'
   tool_panel_section_id: 'bedtools'
@@ -449,26 +444,6 @@ tools:
   tool_panel_section_id: 'samtools'
   revisions:
   - '020e144b5f78'
-- name: 'ems_variant_density_mapping'
-  owner: 'gregory-minevich'
-  tool_panel_section_id: 'variant_detection'
-  revisions:
-  - 'ddfef7773c2d'  # v1.0.0
-- name: 'snp_mapping_using_wgs'
-  owner: 'gregory-minevich'
-  tool_panel_section_id: 'variant_detection'
-  revisions:
-  - '7fb9d1e732a0'  # v1.0.0
-- name: 'cloudmap_variant_discovery_mapping'
-  owner: 'gregory-minevich'
-  tool_panel_section_id: 'variant_detection'
-  revisions:
-  - 'c80c0aabc869'  # v1.0.0
-- name: 'cloudmap_in_silico_complementation'
-  owner: 'gregory-minevich'
-  tool_panel_section_id: 'variant_detection'
-  revisions:
-  - '5389dc5a0be3'  # v1.0.0
 - name: 'allele_counts'
   owner: 'nick'
   tool_panel_section_id: 'variant_detection'
