@@ -193,7 +193,7 @@ tools:
   owner: 'devteam'
   tool_panel_section_id: 'ngs:_picard'
   revisions:
-  - '379fdf4c41ac'  # v1.126.0
+  - '5053a18d9bc8'
 - name: 'vcfcombine'
   owner: 'devteam'
   tool_panel_section_id: 'ngs:_vcf_manipulation'
