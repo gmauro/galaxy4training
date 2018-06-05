@@ -180,11 +180,6 @@ tools:
   revisions:
   - 'c71dd035971e'  # v0.1
   - 'ac30bfd3e2a8'  # v0.2.2 & v0.2.3
-- name: 'bwa_wrappers'
-  owner: 'devteam'
-  tool_panel_section_id: 'ngs_mapping'
-  revisions:
-  - 'b4427dbb6ced'  # v1.0.2 & v1.2.3
 - name: 'bamtools'
   owner: 'devteam'
   tool_panel_section_id: 'ngs:_bam_tools'
