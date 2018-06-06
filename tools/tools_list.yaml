@@ -165,9 +165,7 @@ tools:
   owner: 'devteam'
   tool_panel_section_id: 'ngs_mapping'
   revisions:
-  - 'ceb6467e276c'  # v0.4
-  - 'c1ec08cb34f9'  # v0.3
-  - 'a54de7e658f7'  # v0.2
+  - 'c3dd1aeb7d07'
 - name: 'bwa'
   owner: 'devteam'
   tool_panel_section_id: 'ngs_mapping'
