@@ -2,6 +2,9 @@
   vars:
     supervisor_venv_dir: "{{ galaxy_user_home }}/supervisor/venv"
     supervisor_config_dir: "{{ galaxy_user_home }}/supervisor/config"
+    uwsgi_threads: 4
+    galaxy_web_processes: 4
+    galaxy_handler_processes: 2
   roles:
     - role: common
     - role: ansible-gx-extras
