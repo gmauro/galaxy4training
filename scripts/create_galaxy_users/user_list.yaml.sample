@@ -1,0 +1,15 @@
+api_key: <Galaxy Admin user API key>
+galaxy_instance: <IP address for target Galaxy instance>
+users:
+- username: user1
+  user_email: user1@example.com
+  password: changeme
+  group: crs4
+- username: user2
+  user_email: user2@example.com
+  password: changeme
+  group: crs4
+- username: user3
+  user_email: user3@example.com
+  password: changeme
+  group: sigu
