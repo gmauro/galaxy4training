@@ -43,19 +43,14 @@ In _roles/role_label/defaults/main.yml_, each role has his own set of variables.
 
 See the [ansible documentation about group variables](http://docs.ansible.com/ansible/intro_inventory.html) for details.
 
-## Deploying on localhost
-
-Run the playbook:
-
-`ansible-playbook -i inventory local.yml -e brand='G4T' -e admin_users='admin@example.com`
-
 ## How to clone this repository
 
 Start by cloning the repository:
 
 `git clone https://github.com/gmauro/galaxy4training`
 
-Since the repository makes use of submodules, you first need to initialize all the submodules:
+Since the repository makes use of [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), you first need to initialize 
+all the submodules:
 
 `cd galaxy4training`  
 `git submodule update --init`
@@ -65,3 +60,9 @@ Since the repository makes use of submodules, you first need to initialize all t
 Alternatively, with version 1.6.5 of git and later, you can pass the --recursive option to git clone and initialize all submodules:
 
 `git clone --recursive https://github.com/gmauro/galaxy4training`
+
+## Deploying on localhost
+
+Clone the repository as described above and then run the playbook:
+
+`ansible-playbook -i inventory local.yml -e brand='G4T' -e admin_users='admin@example.com`
