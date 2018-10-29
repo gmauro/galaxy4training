@@ -329,10 +329,10 @@ tools:
   revisions:
   - 'f0ee2b470481'
 - name: 'bedtools'
-  owner: 'aaronquinlan'
+  owner: 'iuc'
   tool_panel_section_label: 'Bed Tools'
   revisions:
-  - '41bba3e648d1'
+  - 'db1841942d2b'
 - name: 'fasta_filter_by_length'
   owner: 'devteam'
   tool_panel_section_label: 'Fasta Manipulation'
@@ -528,6 +528,11 @@ tools:
   tool_panel_section_label: 'Variant Detection'
   revisions:
   - '1363e5d4a8b8'  # v0.1
+  - name: 'exomedepth'
+    owner: 'crs4'
+    tool_panel_section_label: 'Variant Detection'
+    revisions:
+    - '165732ee5a48'
 - name: 'variants_validate'
   owner: 'devteam'
   tool_panel_section_label: 'GATK'
