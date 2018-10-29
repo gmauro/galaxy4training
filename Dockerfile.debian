@@ -1,5 +1,4 @@
-# Based on gmauro/debian-ansible
-FROM gmauro/debian-ansible
+FROM gmauro/ansible:2.6-debian
 MAINTAINER Gianmauro Cuccuru <gmauro@crs4.it>
 
 ENV DEBIAN_FRONTEND noninteractive
