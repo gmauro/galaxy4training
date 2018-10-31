@@ -1,4 +1,4 @@
-FROM gmauro/ansible:2.6-ubuntu
+FROM gmauro/ansible:2.6_ubuntu16.04
 MAINTAINER Gianmauro Cuccuru <gmauro@crs4.it>
 
 ENV DEBIAN_FRONTEND noninteractive
