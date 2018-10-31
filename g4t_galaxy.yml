@@ -6,7 +6,8 @@
     galaxy_mutable_data_dir: "{{ galaxy_user_home }}/data"
     galaxy_vcs: git
     galaxy_repo: https://github.com/galaxyproject/galaxy.git
-    galaxy_changeset_id: release_16.04
+    galaxy_changeset_id: "{{ galaxy_changeset_id | default('release_16.04') }}"
+
     galaxy_force_checkout: yes
     galaxy_config:
       "server:main":
