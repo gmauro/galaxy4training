@@ -1,12 +1,14 @@
 # G4T
-[![TravisCI](https://api.travis-ci.org/gmauro/galaxy4training.svg?branch=master)](https://travis-ci.org/gmauro/galaxy4training)
-Galaxy 4 Training - Builder for Galaxy training environment  
+[![TravisCI](https://api.travis-ci.org/gmauro/galaxy4training.svg?branch=master)](https://travis-ci.org/gmauro/galaxy4training)    
+Galaxy 4 Training - Build in a snap a Galaxy training environment on Debian 
+and Ubuntu systems  
+
 
 ## Requirements  
 In order to use this playbook, you need:
 
  * [git](https://git-scm.com/)
- * [ansible >= 2.1.2.0](http://docs.ansible.com/ansible/intro_installation.html)
+ * [ansible >= 2.4](http://docs.ansible.com/ansible/intro_installation.html)
 
 ## Ansible roles  
 List of roles included in this playbook:
