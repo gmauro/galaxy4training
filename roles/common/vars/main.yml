@@ -1,3 +1,7 @@
+pg_db_name: galaxy
+pg_user: galaxy
+pg_password: null
+
 galaxy_user_name: "galaxy"
 galaxy_user_home: "/home/galaxy"
 galaxy_home_dir: "{{ galaxy_user_home }}"

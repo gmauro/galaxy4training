@@ -1,7 +1,4 @@
 - hosts: db_hosts
-  vars:
-    pg_db_name: galaxy
-    pg_user: galaxy
-    pg_password: null
   roles:
+    - role: common
     - role: ansible-postgresql
