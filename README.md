@@ -67,4 +67,4 @@ Alternatively, with version 1.6.5 of git and later, you can pass the --recursive
 
 Clone the repository as described above and then run the playbook:
 
-`ansible-playbook -i inventory local.yml -e brand='G4T' -e admin_users='admin@example.com`
+`ansible-playbook -i inventory g4t.yml -e brand='G4T' -e admin_users='admin@example.com`
