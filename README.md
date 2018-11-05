@@ -1,8 +1,9 @@
-# G4T
+# Galaxy4Training
 [![TravisCI](https://api.travis-ci.org/gmauro/galaxy4training.svg?branch=master)](https://travis-ci.org/gmauro/galaxy4training)    
-Galaxy 4 Training - Build in a snap a Galaxy training environment on Debian 
-and Ubuntu systems  
+Build in a snap a Galaxy environment for a training classroom of 20-30 participants to allow high interactivity and shared practical work.
 
+This Ansible playbook has been developed and tested on Debian and Ubuntu 
+systems.
 
 ## Requirements  
 In order to use this playbook, you need:
@@ -19,10 +20,9 @@ List of roles included in this playbook:
  * [ansible-galaxy](https://github.com/galaxyproject/ansible-galaxy) to configure the Galaxy server.
  * [ansible-gx-extras](https://github.com/gmauro/ansible-gx-extras) to configure several production services as Nginx, Uwsgi and Supervisor.
  * [ansible-galaxy-tools](https://github.com/galaxyproject/ansible-galaxy-tools)  for automated installation of tools from a Tool Shed into Galaxy.
- * [ansible-gx-datasets]() to install external datasets
 
 
-## Main Variables
+## Control flow variables
 
 A first set of variables, that regulate the playbook execution, are available in _group_vars/all_:
 
@@ -33,33 +33,20 @@ A first set of variables, that regulate the playbook execution, are available in
  * _g4t_manage_tools_: (default no) to execute or not the ansible-galaxy-tools role
  * _g4t_manage_datasets_: (default no) to execute or not the ansible-gx-datasets role
  
-In _host_vars/localhost_, there are:
-
- * _brand_: text to append next to Galaxy logo in the frontpage
- * _admin_users_: a comma separated list of valid administrative users
  
-You can create a new file in _host_vars_ directory named as the label used into your inventory file. 
-Host specific variables, should be added here.
+## Main variables
 
-In _roles/role_label/defaults/main.yml_, each role has his own set of variables.
+All the variables that can be configured to execute this playbook are 
+collected into  
+_roles/common/vars/main.yml_ .
 
-See the [ansible documentation about group variables](http://docs.ansible.com/ansible/intro_inventory.html) for details.
-
+Apply your modifications there.
+ 
 ## How to clone this repository
 
-Start by cloning the repository:
+Since this repository makes use of [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), 
+you can pass the --recursive option to git clone and initialize all submodules:
 
-`git clone https://github.com/gmauro/galaxy4training`
-
-Since the repository makes use of [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), you first need to initialize 
-all the submodules:
-
-`cd galaxy4training`  
-`git submodule update --init`
-
-### Short way
-
-Alternatively, with version 1.6.5 of git and later, you can pass the --recursive option to git clone and initialize all submodules:
 
 `git clone --recursive https://github.com/gmauro/galaxy4training`
 
@@ -68,3 +55,22 @@ Alternatively, with version 1.6.5 of git and later, you can pass the --recursive
 Clone the repository as described above and then run the playbook:
 
 `ansible-playbook -i inventory g4t.yml -e brand='G4T' -e admin_users='admin@example.com`
+
+## Development
+
+Easily prepare a development setup using [Docker](https://docs.docker.com) in 
+this way:
+
+ * Clone the repository  
+ `git clone --recursive https://github.com/gmauro/galaxy4training`
+ 
+ * Edit the code on your machine
+ 
+ * start a docker container  
+ `docker run -p 8080:80 -v /path/to/galaxy4training:/galaxy4training --rm -ti gmauro/ansible:2.6_ubuntu16.04 /bin/bash`
+  
+ * Start Galaxy deployment on the docker container  
+ `cd galaxy4training && ansible-playbook g4t.yml`
+
+ * Check the result on your browser at [localhost](http://localhost:8080)
+ 

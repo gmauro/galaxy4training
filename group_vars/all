@@ -1,3 +1,4 @@
+# Control flow variables
 g4t_manage_os_setup: yes
 g4t_manage_db_setup: yes
 g4t_manage_galaxy: yes
