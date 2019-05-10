@@ -1,14 +1,43 @@
 - hosts: galaxy_hosts
+  become: true
+  pre_tasks:
+    - name: Only update apt cache if the last one is more than 3600 seconds ago
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install common dependencies
+      package:
+        pkg:
+          - sudo
+          - git-core
+          - make
+          - virtualenv
+          - nano
+          - vim
+          - curl
+          - unzip
+          - samtools
+          - python3-psycopg2
+          - python3-pip
+        state: present
+
+#    - name: example copying file with owner and permissions
+#      copy:
+#        src: requirements.yml
+#        dest: /tmp/requirements.yml
+#
+#    - name: deploy Ansible roles
+#      command: ansible-galaxy install -p roles -r /tmp/requirements.yml
+
   roles:
     - role: common
-    - role: ansible-galaxy-os
-      become: yes
+
   post_tasks:
     - name: Remove useless packages from the cache
       apt:
         autoclean: yes
-      become: yes
     - name: Remove dependencies that are no longer required
       apt:
         autoremove: yes
-      become: yes
+

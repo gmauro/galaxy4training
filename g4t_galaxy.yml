@@ -1,28 +1,85 @@
 - hosts: galaxy_hosts
+  become: true
+  handlers:
+    - name: Restart Galaxy
+      debug:
+        msg: "Not yet available"
+#  vars:
+#    galaxy_user:
+#      name: galaxy
+#      shell: /bin/bash
+#    galaxy_group:
+#      name: galaxy
+
   pre_tasks:
-    - name: Create shed_tools directory
+#
+#    - name: Copy custom_tool_conf xml file
+#      copy:
+#        src: custom_tool_conf.xml
+#        dest: "{{ galaxy_mutable_config_dir }}"
+#        owner: galaxy
+#        group: users
+#      become: yes
+
+    - name: Only update apt cache if the last one is more than 3600 seconds ago
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install dependencies
+      apt:
+        pkg:
+          - git
+          - make
+          - virtualenv
+        state: present
+
+#    - name: Create Galaxy group
+#      group:
+#        name: "{{ galaxy_group.name | default(galaxy_group) }}"
+#        gid: "{{ galaxy_group.gid | default(omit) }}"
+#        system: "{{ galaxy_group.system | default(galaxy_user.system) | default('true') }}"
+#        local: "{{ galaxy_group.local | default(galaxy_user.local) | default(omit) }}"
+#
+#    - name: Create Galaxy user
+#      user:
+#        name: "{{ galaxy_user.name | default(galaxy_user) }}"
+#        uid: "{{ galaxy_user.uid | default(omit) }}"
+#        group: "{{ (galaxy_group | default({})).name | default(galaxy_group) | default(omit) }}"
+#        comment: "{{ galaxy_user.comment | default('Galaxy server') }}"
+#        create_home: "{{ galaxy_user.create_home | default('true') }}"
+#        home: "{{ galaxy_user.home | default(omit) }}"
+#        shell: "{{ galaxy_user.shell | default(omit) }}"
+#        system: "{{ galaxy_user.system | default('true') }}"
+#        local: "{{ galaxy_user.local | default(omit) }}"
+#
+    - name: Download miniconda3 installer
+      get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        dest: "/tmp/Miniconda3-latest-Linux-x86_64.sh"
+
+    # this will only run if miniconda3 is not already there yet (creates: ...)
+    - name: Install miniconda3
+      command: "/bin/bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b"
+      args:
+        creates: "/srv/galaxy/miniconda3"
+
+    - name: Add conda config to .bashrc
+      lineinfile:
+        path: "/root/.bashrc"
+        line: ". ~/miniconda3/etc/profile.d/conda.sh"
+
+  roles:
+    - role: common
+    - role: galaxyproject.galaxy
+
+  post_tasks:
+    - name: Create log directory
       file:
         state: "{{ item.state }}"
         path: "{{ item.path }}"
         owner: galaxy
         group: users
       with_items:
-        - {path: "{{ galaxy_user_home }}/shed_tools", state: "directory" }
-        - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
-        - {path: "{{ galaxy_mutable_config_dir }}/tool-data", state: "directory" }
-        - {path: "{{ galaxy_log_dir }}", state: "directory" }
-      become: yes
+        - {path: "{{ galaxy_mutable_data_dir }}/log", state: "directory" }
 
-    - name: Copy custom_tool_conf xml file
-      copy:
-        src: custom_tool_conf.xml
-        dest: "{{ galaxy_mutable_config_dir }}"
-        owner: galaxy
-        group: users
-      become: yes
-
-  roles:
-    - role: common
-    - role: ansible-galaxy
-      become: yes
-      become_user: galaxy

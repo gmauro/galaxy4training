@@ -1,5 +1,14 @@
 - hosts: galaxy_hosts
+  become: true
+  handlers:
+    - name: Restart Galaxy
+      supervisorctl:
+        name: galaxy
+        state: restarted
+
   roles:
     - role: common
-    - role: ansible-gx-extras
+    - role: geerlingguy.pip
+    - role: usegalaxy-eu.supervisor
+    - role: geerlingguy.nginx
 

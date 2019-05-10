@@ -1,0 +1,5 @@
+[galaxy_hosts]
+192.52.34.100 ansible_connection=ssh ansible_user=ubuntu ansible_python_interpreter=/usr/bin/python3
+
+[db_hosts]
+192.52.34.100 ansible_connection=ssh ansible_user=ubuntu ansible_python_interpreter=/usr/bin/python3

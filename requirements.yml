@@ -1,0 +1,7 @@
+- natefoo.postgresql_objects
+- galaxyproject.postgresql
+- galaxyproject.galaxy
+- geerlingguy.pip
+- src: https://github.com/usegalaxy-eu/ansible-role-supervisor
+  name: usegalaxy-eu.supervisor
+- geerlingguy.nginx

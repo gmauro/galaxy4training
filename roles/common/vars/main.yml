@@ -1,49 +1,181 @@
 # vars from ansible-galaxy-os role
 galaxy_user_name: "galaxy"
 galaxy_user_home: "/home/galaxy"
+install_slurm_drmaa_lib: no
+install_postgresql: no
 
-# vars from ansible-postgres role
-pg_db_name: galaxy
-pg_user: galaxy
-pg_password: null
+# vars from galaxyproject.postgresql role
+postgresql_pg_hba_conf:
+  - host all all 0.0.0.0/8 md5
+
+# vars from natefoo.postgresql_objects
+postgresql_objects_users:
+  - name: galaxy
+postgresql_objects_databases:
+  - name: galaxy
+    owner: galaxy
+
+# vars from galaxyproject.galaxy
+galaxy_create_user: true
+galaxy_separate_privileges: true
+galaxy_manage_paths: true
+galaxy_layout: root-dir
+galaxy_root: /srv/galaxy
+galaxy_file_path: /data
+galaxy_user:
+  name: galaxy
+  shell: /bin/bash
+galaxy_commit_id: release_19.05
+galaxy_config_style: yaml
+galaxy_force_checkout: true
+
+galaxy_config:
+  galaxy:
+    brand: "G4T"
+    admin_users: admin@example.org
+    database_connection: "postgresql:///galaxy?host=/var/run/postgresql"
+    file_path: /data
+    check_migrate_tools: false
+    allow_user_impersonation: True
+    cleanup_job: onsuccess
+    dependency_resolvers_config_file: "{{ galaxy_server_dir }}/config/dependency_resolvers_conf.xml.sample"
+  uwsgi:
+    # Default values
+    socket: 127.0.0.1:8080
+    buffer-size: 16384
+    processes: 1
+    threads: 4
+    offload-threads: 2
+    static-map:
+      - /static/style={{ galaxy_server_dir }}/static/style/blue
+      - /static={{ galaxy_server_dir }}/static
+    master: true
+    virtualenv: "{{ galaxy_venv_dir }}"
+    pythonpath: "{{ galaxy_server_dir }}/lib"
+    logto: "{{ galaxy_mutable_data_dir }}/log/galaxy.log"
+    module: galaxy.webapps.galaxy.buildapp:uwsgi_app()
+    thunder-lock: true
+    die-on-term: true
+    hook-master-start:
+      - unix_signal:2 gracefully_kill_them_all
+      - unix_signal:15 gracefully_kill_them_all
+    py-call-osafterfork: true
+    enable-threads: true
+    # Our additions
+    mule:
+      - lib/galaxy/main.py
+      - lib/galaxy/main.py
+    farm: job-handlers:1,2
 
 # vars from ansible-galaxy role
-galaxy_home_dir: "{{ galaxy_user_home }}"
-galaxy_server_dir: "{{ galaxy_user_home }}/server"
-galaxy_config_dir: "{{ galaxy_user_home }}/config"
-galaxy_config_file: "{{ galaxy_config_dir }}/galaxy.ini"
-galaxy_venv_dir: "{{ galaxy_server_dir }}/.venv"
-galaxy_log_dir: "{{ galaxy_user_home }}/log"
-galaxy_release_id: "release_17.09"
+#galaxy_home_dir: "{{ galaxy_user_home }}"
+#galaxy_server_dir: "{{ galaxy_user_home }}/server"
+#galaxy_config_dir: "{{ galaxy_user_home }}/config"
+#galaxy_config_file: "{{ galaxy_config_dir }}/galaxy.ini"
+#galaxy_venv_dir: "{{ galaxy_server_dir }}/.venv"
+#galaxy_log_dir: "{{ galaxy_user_home }}/log"
+#galaxy_release_id: "release_17.09"
 
-admin_users: 'admin@example.com'
-brand: 'G4T'
-galaxy_mutable_config_dir: "{{ galaxy_user_home }}/config"
-galaxy_mutable_data_dir: "{{ galaxy_user_home }}/data"
-galaxy_changeset_id: "{{ galaxy_release_id | default('release_16.04') }}"
-galaxy_force_checkout: yes
-galaxy_config:
-  "server:main":
-    host: 0.0.0.0
-  "app:main":
-    conda_ensure_channels: conda-forge,r,bioconda,iuc
-    conda_auto_install: True
-    conda_auto_init: True
-    database_connection: "postgresql:///galaxy?host=/var/run/postgresql"
-    brand: "{{ brand }}"
-    admin_users: "{{ admin_users }}"
-    allow_user_impersonation: True
-    require_login: True
-    allow_user_creation: True
-    shed_tool_data_path: "{{ galaxy_mutable_data_dir }}/tool-data"
-    tool_config_file: "{{ galaxy_server_dir }}/config/tool_conf.xml.sample,{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml,{{ galaxy_shed_tool_conf_file }}"
-    cleanup_job: onsuccess
-    environment_setup_file: "{{galaxy_mutable_config_dir }}/custom_env.sh"
-    nginx_x_accel_redirect_base: '/_x_accel_redirect'
+#admin_users: 'admin@example.com'
+#brand: 'G4T'
+#galaxy_mutable_config_dir: "{{ galaxy_user_home }}/config"
+#galaxy_mutable_data_dir: "{{ galaxy_user_home }}/data"
+#galaxy_changeset_id: "{{ galaxy_release_id | default('release_17.09') }}"
+#galaxy_force_checkout: yes
+#galaxy_config:
+#  "server:main":
+#    host: 0.0.0.0
+#  "app:main":
+#    conda_ensure_channels: conda-forge,r,bioconda,iuc
+#    conda_auto_install: True
+#    conda_auto_init: True
+#    database_connection: "postgresql:///galaxy?host=/var/run/postgresql"
+#    brand: "{{ brand }}"
+#    admin_users: "{{ admin_users }}"
+#    allow_user_impersonation: True
+#    require_login: True
+#    allow_user_creation: True
+#    shed_tool_data_path: "{{ galaxy_mutable_data_dir }}/tool-data"
+#    tool_config_file: "{{ galaxy_server_dir }}/config/tool_conf.xml.sample,{{ galaxy_mutable_config_dir }}/custom_tool_conf.xml,{{ galaxy_shed_tool_conf_file }}"
+#    cleanup_job: onsuccess
+#    environment_setup_file: "{{galaxy_mutable_config_dir }}/custom_env.sh"
+ #   nginx_x_accel_redirect_base: '/_x_accel_redirect'
+
+# vars from usegalaxy-eu.supervisor
+supervisor_socket_user: 'galaxy'
+supervisor_socket_chown: 'galaxy'
+galaxy_restart_handler_name: Restart Galaxy
+
+supervisor_programs:
+  - name: galaxy
+    state: present
+    command: uwsgi --yaml {{ galaxy_config_dir }}/galaxy.yml
+    configuration: |
+      autostart=true
+      autorestart=true
+      startretries=1
+      startsecs=10
+      user=galaxy
+      umask=022
+      directory={{ galaxy_server_dir }}
+      environment=HOME={{ galaxy_mutable_data_dir }},VIRTUAL_ENV={{ galaxy_venv_dir }},PATH={{ galaxy_venv_dir }}/bin:%(ENV_PATH)s
+
+hostname: "{{ ansible_hostname }}"
+
+nginx_package_name: nginx-full # nginx-galaxy on RHEL/CentOS
+nginx_remove_default_vhost: true
+nginx_server_names_hash_bucket_size: "128"
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ hostname }}"
+    root: "/var/www/{{ hostname }}"
+    index: "index.html"
+    access_log: "/var/log/nginx/access.log"
+    error_log: "/var/log/nginx/error.log"
+    state: "present"
+    filename: "{{ hostname }}.conf"
+    extra_parameters: |
+        client_max_body_size 10G; # aka max upload size, defaults to 1M
+        uwsgi_read_timeout 2400;
+
+        location / {
+            uwsgi_pass      127.0.0.1:8080;
+            uwsgi_param UWSGI_SCHEME $scheme;
+            include         uwsgi_params;
+        }
+
+
+        location /static {
+                alias {{ galaxy_server_dir }}/static;
+                expires 24h;
+        }
+
+        location /static/style {
+                alias {{ galaxy_server_dir }}/static/style/blue;
+                expires 24h;
+        }
+
+        location /static/scripts {
+                alias {{ galaxy_server_dir }}/static/scripts;
+                expires 24h;
+        }
+
+        location /robots.txt {
+                alias {{ galaxy_server_dir }}/static/robots.txt;
+        }
+
+        location /favicon.ico {
+                alias {{ galaxy_server_dir }}/static/favicon.ico;
+        }
+
+        location /static/welcome.html {
+                alias {{ galaxy_server_dir }}/static/welcome.html.sample;
+        }
+
 
 #vars from ansible-gx-extras
-supervisor_venv_dir: "{{ galaxy_user_home }}/supervisor/venv"
-supervisor_config_dir: "{{ galaxy_user_home }}/supervisor/config"
-uwsgi_threads: 4
-galaxy_web_processes: 4
-galaxy_handler_processes: 2
+#supervisor_venv_dir: "{{ galaxy_user_home }}/supervisor/venv"
+#supervisor_config_dir: "{{ galaxy_user_home }}/supervisor/config"
+#uwsgi_threads: 4
+#galaxy_web_processes: 4
+#galaxy_handler_processes: 2
