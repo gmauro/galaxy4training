@@ -4,12 +4,6 @@
     - name: Restart Galaxy
       debug:
         msg: "Not yet available"
-#  vars:
-#    galaxy_user:
-#      name: galaxy
-#      shell: /bin/bash
-#    galaxy_group:
-#      name: galaxy
 
   pre_tasks:
 #
@@ -53,21 +47,21 @@
 #        system: "{{ galaxy_user.system | default('true') }}"
 #        local: "{{ galaxy_user.local | default(omit) }}"
 #
-    - name: Download miniconda3 installer
-      get_url:
-        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-        dest: "/tmp/Miniconda3-latest-Linux-x86_64.sh"
-
-    # this will only run if miniconda3 is not already there yet (creates: ...)
-    - name: Install miniconda3
-      command: "/bin/bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b"
-      args:
-        creates: "/srv/galaxy/miniconda3"
-
-    - name: Add conda config to .bashrc
-      lineinfile:
-        path: "/root/.bashrc"
-        line: ". ~/miniconda3/etc/profile.d/conda.sh"
+#    - name: Download miniconda3 installer
+#      get_url:
+#        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#        dest: "/tmp/Miniconda3-latest-Linux-x86_64.sh"
+#
+#    # this will only run if miniconda3 is not already there yet (creates: ...)
+#    - name: Install miniconda3
+#      command: "/bin/bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b"
+#      args:
+#        creates: "/srv/galaxy/miniconda3"
+#
+#    - name: Add conda config to .bashrc
+#      lineinfile:
+#        path: "/root/.bashrc"
+#        line: ". ~/miniconda3/etc/profile.d/conda.sh"
 
   roles:
     - role: common
@@ -78,8 +72,14 @@
       file:
         state: "{{ item.state }}"
         path: "{{ item.path }}"
-        owner: galaxy
-        group: users
+        owner: "{{ galaxy_user.name }}"
+        group: "{{ galaxy_user.name }}"
       with_items:
         - {path: "{{ galaxy_mutable_data_dir }}/log", state: "directory" }
+        - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
+
+    - name: Copy shed_tool_conf.xml
+      template:
+        src: shed_tool_conf.xml.j2
+        dest: "{{ galaxy_shed_tool_conf_file }}"
 
