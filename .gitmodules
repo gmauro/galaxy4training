@@ -1,15 +1,3 @@
-[submodule "roles/ansible-galaxy-os"]
-	path = roles/ansible-galaxy-os
-	url = https://github.com/gmauro/ansible-galaxy-os.git
-[submodule "roles/ansible-galaxy"]
-	path = roles/ansible-galaxy
-	url = https://github.com/gmauro/ansible-galaxy
 [submodule "roles/ansible-galaxy-tools"]
 	path = roles/ansible-galaxy-tools
 	url = https://github.com/gmauro/ansible-galaxy-tools.git
-[submodule "roles/ansible-postgresql"]
-	path = roles/ansible-postgresql
-	url = https://github.com/gmauro/ansible-postgresql.git
-[submodule "roles/ansible-gx-extras"]
-	path = roles/ansible-gx-extras
-	url = https://github.com/gmauro/ansible-gx-extras.git
