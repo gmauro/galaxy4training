@@ -1,8 +1,9 @@
 FROM gmauro/ansible:2.6_debian9
-MAINTAINER Gianmauro Cuccuru <gmauro@crs4.it>
+MAINTAINER Gianmauro Cuccuru <gmauro@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN git clone --recursive https://github.com/gmauro/galaxy4training \
  && cd galaxy4training \
+ && ansible-galaxy install -p roles -r requirements.yml \
  && ansible-playbook g4t.yml -e brand='CI'
