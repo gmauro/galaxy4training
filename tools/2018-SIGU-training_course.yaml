@@ -324,7 +324,7 @@ tools:
   revisions:
   - 'f20585ccbf05'
 - name: 'snpeff'
-  owner: 'ui'
+  owner: 'iuc'
   tool_panel_section_label: 'SnpEff'
   revisions:
   - 'f0ee2b470481'
