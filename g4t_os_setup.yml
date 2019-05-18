@@ -18,17 +18,27 @@
           - curl
           - unzip
           - samtools
+        state: present
+
+    - name: Install OS specific dependencies
+      package:
+        pkg:
+          - python-psycopg2
+          - python-pip
+        state: present
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version <= "16"
+        -
+    - name: Install OS specific dependencies
+      package:
+        pkg:
           - python3-psycopg2
           - python3-pip
         state: present
-
-#    - name: example copying file with owner and permissions
-#      copy:
-#        src: requirements.yml
-#        dest: /tmp/requirements.yml
-#
-#    - name: deploy Ansible roles
-#      command: ansible-galaxy install -p roles -r /tmp/requirements.yml
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version >= "18"
 
   roles:
     - role: common
