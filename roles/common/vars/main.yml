@@ -139,3 +139,7 @@ nginx_vhosts:
                 alias {{ galaxy_server_dir }}/static/welcome.html.sample;
         }
 
+# vars from galaxyprojectdotorg.galaxy-tools
+galaxy_tools_tool_list_files: [ "files/tool_list.yml" ]
+galaxy_tools_galaxy_instance_url: < galaxy instance url >
+galaxy_tools_api_key: <API key for Galaxy admin user>
