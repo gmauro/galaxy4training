@@ -1,3 +1,0 @@
-[submodule "roles/ansible-galaxy-tools"]
-	path = roles/ansible-galaxy-tools
-	url = https://github.com/gmauro/ansible-galaxy-tools.git
