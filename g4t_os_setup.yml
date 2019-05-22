@@ -18,6 +18,7 @@
           - curl
           - unzip
           - samtools
+          - zlib1g-dev
         state: present
 
     - name: Install OS specific dependencies
