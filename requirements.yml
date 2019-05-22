@@ -7,3 +7,5 @@
 - geerlingguy.nginx
 - src: https://github.com/galaxyproject/ansible-galaxy-tools.git
   name: galaxyprojectdotorg.galaxy-tools
+- src: https://github.com/galaxyproject/ansible-cvmfs
+  name: galaxyproject.cvmfs

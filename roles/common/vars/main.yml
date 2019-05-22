@@ -71,7 +71,7 @@ galaxy_config:
 # vars from usegalaxy-eu.supervisor
 supervisor_socket_user: 'galaxy'
 supervisor_socket_chown: 'galaxy'
-galaxy_restart_handler_name: Restart Galaxy
+galaxy_restart_handler_name: restart galaxy
 
 supervisor_programs:
   - name: galaxy
@@ -143,3 +143,16 @@ nginx_vhosts:
 galaxy_tools_tool_list_files: [ "files/tool_list.yml" ]
 galaxy_tools_galaxy_instance_url: < galaxy instance url >
 galaxy_tools_api_key: <API key for Galaxy admin user>
+
+# vars from galaxyproject.cvmfs
+cvmfs_role: client
+galaxy_cvmfs_repos_enabled: true
+galaxy_cvmfs_server_urls:
+  - domain: galaxyproject.org
+    use_geoapi: true
+    urls:
+      - "http://cvmfs1-iu0.galaxyproject.org/cvmfs/@fqrn@"
+      - "http://cvmfs1-ufr0.galaxyproject.eu/cvmfs/@fqrn@"
+      - "http://cvmfs1-psu0.galaxyproject.org/cvmfs/@fqrn@"
+      - "http://cvmfs1-mel0.gvl.org.au/cvmfs/@fqrn@"
+
