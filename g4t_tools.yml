@@ -1,4 +1,6 @@
 - hosts: galaxy_hosts
+  become: true
+  become_user: "{{ galaxy_user.name }}"
 
   roles:
     - galaxyprojectdotorg.galaxy-tools
