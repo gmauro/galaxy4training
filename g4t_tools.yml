@@ -3,5 +3,6 @@
   become_user: "{{ galaxy_user.name }}"
 
   roles:
-    - galaxyprojectdotorg.galaxy-tools
+    - role: common
+    - role: galaxyprojectdotorg.galaxy-tools
 
