@@ -4,6 +4,10 @@ galaxy_user_home: "/home/galaxy"
 install_slurm_drmaa_lib: no
 install_postgresql: no
 
+frontpage_footer: footer.png
+frontpage_logo: logo.png
+frontpage_welcome: welcome.html
+
 # vars from galaxyproject.postgresql role
 postgresql_pg_hba_conf:
   - host all all 0.0.0.0/8 md5
@@ -136,7 +140,7 @@ nginx_vhosts:
         }
 
         location /static/welcome.html {
-                alias {{ galaxy_server_dir }}/static/welcome.html.sample;
+                alias {{ galaxy_server_dir }}/static/welcome.html;
         }
 
 # vars from galaxyprojectdotorg.galaxy-tools

@@ -6,6 +6,17 @@
         name: galaxy
         state: restarted
 
+  tasks:
+  - name: copy frontpage files
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      mode: 0644
+    with_items:
+      - { src: "{{ frontpage_welcome }}", dest: "{{ galaxy_server_dir }}/static" }
+      - { src: "{{ frontpage_footer }}", dest: "{{ galaxy_server_dir }}/static/images" }
+      - { src: "{{ frontpage_logo }}", dest: "{{ galaxy_server_dir }}/static/images" }
+
   roles:
     - role: common
     - role: geerlingguy.pip
