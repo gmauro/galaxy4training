@@ -1,9 +1,4 @@
-# vars from ansible-galaxy-os role
-galaxy_user_name: "galaxy"
-galaxy_user_home: "/home/galaxy"
-install_slurm_drmaa_lib: no
-install_postgresql: no
-
+# Frontpage
 frontpage_footer: footer.png
 frontpage_logo: logo.png
 frontpage_welcome: welcome.html
