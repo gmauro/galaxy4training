@@ -44,8 +44,19 @@
         - {path: "{{ galaxy_mutable_data_dir }}/log", state: "directory" }
         - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
 
-    - name: Copy shed_tool_conf.xml
+    - name: Copy config files
       template:
-        src: shed_tool_conf.xml.j2
-        dest: "{{ galaxy_shed_tool_conf_file }}"
+        src: "{{ item.src }}"
+          dest: "{{ item.dest }}"
+          mode: 0644
+        with_items:
+          - { src: "tool_data_table_conf.xml.j2", dest: "/data/share/galaxy/var/config/tool_data_table_conf.xml" }
+`         - { src: "shed_tool_conf.xml.j2", dest: "{{ galaxy_shed_tool_conf_file }}" }
 
+    - name: copy tool_data_table_conf file
+      template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: 0644
+      with_items:
+        - { src: "tool_data_table_conf.xml.j2", dest: "/data/share/galaxy/var/config/tool_data_table_conf.xml" }
