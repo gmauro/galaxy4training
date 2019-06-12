@@ -1,7 +1,7 @@
 - hosts: galaxy_hosts
   become: true
   handlers:
-    - name: Restart Galaxy
+    - name: restart galaxy
       debug:
         msg: "Not yet available"
 
@@ -47,9 +47,8 @@
     - name: Copy config files
       template:
         src: "{{ item.src }}"
-          dest: "{{ item.dest }}"
-          mode: 0644
-        with_items:
-          - { src: "tool_data_table_conf.xml.j2", dest: "{{ galaxy_mutable_config_dir }}/tool_data_table_conf.xml" }
-`         - { src: "shed_tool_conf.xml.j2", dest: "{{ galaxy_shed_tool_conf_file }}" }
-
+        dest: "{{ item.dest }}"
+        mode: 0644
+      with_items:
+        - { src: "tool_data_table_conf.xml.j2", dest: "{{ galaxy_mutable_config_dir }}/tool_data_table_conf.xml" }
+        - { src: "shed_tool_conf.xml.j2", dest: "{{ galaxy_shed_tool_conf_file }}" }
