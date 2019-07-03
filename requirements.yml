@@ -1,0 +1,11 @@
+- natefoo.postgresql_objects
+- galaxyproject.postgresql
+- galaxyproject.galaxy
+- geerlingguy.pip
+- src: https://github.com/usegalaxy-eu/ansible-role-supervisor
+  name: usegalaxy-eu.supervisor
+- geerlingguy.nginx
+- src: https://github.com/galaxyproject/ansible-galaxy-tools.git
+  name: galaxyprojectdotorg.galaxy-tools
+- src: https://github.com/galaxyproject/ansible-cvmfs
+  name: galaxyproject.cvmfs

@@ -1,0 +1,17 @@
+<tables>
+    <!-- Available IGV builds, loaded from URL -->
+    <table name="igv_broad_genomes" comment_char="#" allow_duplicate_entries="False">
+        <columns>name, url, value</columns>
+        <file url="http://igv.broadinstitute.org/genomes/genomes.txt" />
+    </table>
+    <!-- iobio bam servers -->
+    <table name="bam_iobio" comment_char="#" allow_duplicate_entries="False">
+        <columns>value, name, url</columns>
+        <file path="{{ galaxy_server_dir }}/tool-data/bam_iobio.loc.sample" />
+    </table>
+    <!-- iobio vcf servers -->
+    <table name="vcf_iobio" comment_char="#" allow_duplicate_entries="False">
+        <columns>value, name, url</columns>
+        <file path="{{ galaxy_server_dir }}/tool-data/vcf_iobio.loc.sample" />
+    </table>
+</tables>

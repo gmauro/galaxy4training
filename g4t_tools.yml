@@ -1,4 +1,8 @@
 - hosts: galaxy_hosts
+  become: true
+  become_user: "{{ galaxy_user.name }}"
+
   roles:
     - role: common
-    - role: ansible-galaxy-tools
+    - role: galaxyprojectdotorg.galaxy-tools
+

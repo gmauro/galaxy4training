@@ -1,28 +1,54 @@
 - hosts: galaxy_hosts
-  pre_tasks:
-    - name: Create shed_tools directory
-      file:
-        state: "{{ item.state }}"
-        path: "{{ item.path }}"
-        owner: galaxy
-        group: users
-      with_items:
-        - {path: "{{ galaxy_user_home }}/shed_tools", state: "directory" }
-        - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
-        - {path: "{{ galaxy_mutable_config_dir }}/tool-data", state: "directory" }
-        - {path: "{{ galaxy_log_dir }}", state: "directory" }
-      become: yes
+  become: true
+  handlers:
+    - name: restart galaxy
+      debug:
+        msg: "Not yet available"
 
-    - name: Copy custom_tool_conf xml file
-      copy:
-        src: custom_tool_conf.xml
-        dest: "{{ galaxy_mutable_config_dir }}"
-        owner: galaxy
-        group: users
-      become: yes
+  pre_tasks:
+#
+#    - name: Copy custom_tool_conf xml file
+#      copy:
+#        src: custom_tool_conf.xml
+#        dest: "{{ galaxy_mutable_config_dir }}"
+#        owner: galaxy
+#        group: users
+#      become: yes
+
+    - name: Only update apt cache if the last one is more than 3600 seconds ago
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install dependencies
+      apt:
+        pkg:
+          - git
+          - make
+          - virtualenv
+        state: present
+
 
   roles:
     - role: common
-    - role: ansible-galaxy
-      become: yes
-      become_user: galaxy
+    - role: galaxyproject.galaxy
+
+  post_tasks:
+    - name: Create log directory
+      file:
+        state: "{{ item.state }}"
+        path: "{{ item.path }}"
+        owner: "{{ galaxy_user.name }}"
+        group: "{{ galaxy_user.name }}"
+      with_items:
+        - {path: "{{ galaxy_mutable_data_dir }}/log", state: "directory" }
+        - {path: "{{ galaxy_mutable_data_dir }}/tool-data", state: "directory" }
+
+    - name: Copy config files
+      template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: 0644
+      with_items:
+        - { src: "tool_data_table_conf.xml.j2", dest: "{{ galaxy_mutable_config_dir }}/tool_data_table_conf.xml" }
+        - { src: "shed_tool_conf.xml.j2", dest: "{{ galaxy_shed_tool_conf_file }}" }

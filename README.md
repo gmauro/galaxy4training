@@ -52,9 +52,13 @@ you can pass the --recursive option to git clone and initialize all submodules:
 
 ## Deploying on localhost
 
-Clone the repository as described above and then run the playbook:
+Clone the repository as described above, install the roles and then run the playbook:
 
-`ansible-playbook -i inventory g4t.yml -e brand='G4T' -e admin_users='admin@example.com`
+```bash
+ansible-galaxy install -p roles -r requirements.yml
+ansible-playbook -i inventory g4t.yml -e galaxy_config['brand']='G4T' -e galaxy_config['admin_users']=admin@example.com
+
+```
 
 ## Development
 
@@ -70,7 +74,7 @@ this way:
  `docker run -p 8080:80 -v /path/to/galaxy4training:/galaxy4training --rm -ti gmauro/ansible:2.6_ubuntu16.04 /bin/bash`
   
  * Start Galaxy deployment on the docker container  
- `cd galaxy4training && ansible-playbook g4t.yml`
+ `cd galaxy4training && ansible-galaxy install -p roles -r requirements.yml && ansible-playbook g4t.yml`
 
  * Check the result on your browser at [localhost](http://localhost:8080)
  
