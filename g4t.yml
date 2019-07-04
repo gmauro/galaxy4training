@@ -1,23 +1,23 @@
 ---
 # Install the base operating system requirements for running Galaxy
 - import_playbook: g4t_os_setup.yml
-  when: g4t_manage_os_setup
+  when: g4t_manage_os_setup | bool
 
 # Install the base PostgreSQL requirements and configure it
 - import_playbook: g4t_db_setup.yml
-  when: g4t_manage_db_setup
+  when: g4t_manage_db_setup | bool
 
 # Install Galaxy
 - import_playbook: g4t_galaxy.yml
-  when: g4t_manage_galaxy
+  when: g4t_manage_galaxy | bool
 
 # Configure production services including nginx, uwsgi, supervisor.
 - import_playbook: g4t_extras.yml
-  when: g4t_manage_extras
+  when: g4t_manage_extras | bool
 
 # Install tools from toolshed
 - import_playbook: g4t_tools.yml
-  when: g4t_manage_tools
+  when: g4t_manage_tools | bool
 
 #
 #- import_playbook: g4t_datasets.yml
