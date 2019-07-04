@@ -6,3 +6,4 @@ g4t_manage_extras: yes
 g4t_manage_tools: no
 g4t_manage_datasets: no
 
+g4t_use_cvmfs_role: yes

@@ -6,4 +6,4 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN git clone --recursive https://github.com/gmauro/galaxy4training \
  && cd galaxy4training \
  && ansible-galaxy install -p roles -r requirements.yml \
- && ansible-playbook g4t.yml -e brand='CI'
+ && ansible-playbook g4t.yml -e galaxy_config['brand']='CI' -e g4t_use_cvmfs_role=false

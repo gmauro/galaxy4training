@@ -23,6 +23,7 @@
     - role: usegalaxy-eu.supervisor
     - role: geerlingguy.nginx
     - role: galaxyproject.cvmfs
+      when: g4t_use_cvmfs_role | bool
 
   post_tasks:
     - name: Set tool_data_table_config_path to CVMFS one
